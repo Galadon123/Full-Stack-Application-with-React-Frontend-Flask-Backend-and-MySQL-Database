@@ -148,9 +148,10 @@ private_route_table_association = ec2.RouteTableAssociation('private-route-table
 # Nginx Security Group
 nginx_sg = ec2.SecurityGroup('nginx-sg',
     vpc_id=vpc.id,
-    description='Allow HTTP traffic',
+    description='Allow HTTP and SSH traffic',
     ingress=[
         {'protocol': 'tcp', 'from_port': 80, 'to_port': 80, 'cidr_blocks': ['0.0.0.0/0']},
+        {'protocol': 'tcp', 'from_port': 22, 'to_port': 22, 'cidr_blocks': ['0.0.0.0/0']},
     ],
     egress=[
         {'protocol': 'tcp', 'from_port': 0, 'to_port': 0, 'cidr_blocks': ['0.0.0.0/0']},
@@ -161,9 +162,10 @@ nginx_sg = ec2.SecurityGroup('nginx-sg',
 # React Security Group
 react_sg = ec2.SecurityGroup('react-sg',
     vpc_id=vpc.id,
-    description='Allow traffic from Nginx',
+    description='Allow traffic from Nginx and SSH traffic',
     ingress=[
         {'protocol': 'tcp', 'from_port': 80, 'to_port': 80, 'security_groups': [nginx_sg.id]},
+        {'protocol': 'tcp', 'from_port': 22, 'to_port': 22, 'cidr_blocks': ['0.0.0.0/0']},
     ],
     egress=[
         {'protocol': 'tcp', 'from_port': 0, 'to_port': 0, 'cidr_blocks': ['0.0.0.0/0']},
@@ -174,9 +176,10 @@ react_sg = ec2.SecurityGroup('react-sg',
 # Flask Security Group
 flask_sg = ec2.SecurityGroup('flask-sg',
     vpc_id=vpc.id,
-    description='Allow traffic from React via Nginx',
+    description='Allow traffic from React via Nginx and SSH traffic',
     ingress=[
         {'protocol': 'tcp', 'from_port': 80, 'to_port': 80, 'security_groups': [react_sg.id]},
+        {'protocol': 'tcp', 'from_port': 22, 'to_port': 22, 'cidr_blocks': ['0.0.0.0/0']},
     ],
     egress=[
         {'protocol': 'tcp', 'from_port': 0, 'to_port': 0, 'cidr_blocks': ['0.0.0.0/0']},
@@ -187,9 +190,10 @@ flask_sg = ec2.SecurityGroup('flask-sg',
 # MySQL Security Group
 mysql_sg = ec2.SecurityGroup('mysql-sg',
     vpc_id=vpc.id,
-    description='Allow traffic from Flask',
+    description='Allow traffic from Flask and SSH traffic',
     ingress=[
         {'protocol': 'tcp', 'from_port': 3306, 'to_port': 3306, 'security_groups': [flask_sg.id]},
+        {'protocol': 'tcp', 'from_port': 22, 'to_port': 22, 'cidr_blocks': ['0.0.0.0/0']},
     ],
     egress=[
         {'protocol': 'tcp', 'from_port': 0, 'to_port': 0, 'cidr_blocks': ['0.0.0.0/0']},
@@ -222,23 +226,13 @@ react_instance = ec2.Instance('react-instance',
 )
 
 # Flask Instance for React in the Private Subnet
-flask_instance_1 = ec2.Instance('flask-instance-1',
+flask_instance = ec2.Instance('flask-instance',
     instance_type='t2.micro',
     ami='ami-04b70fa74e45c3917',  # Ubuntu 24.04 LTS AMI for us-east-1
     subnet_id=private_subnet.id,
     vpc_security_group_ids=[flask_sg.id],
     key_name=key_name,
-    tags={'Name': 'flask-instance-1'}
-)
-
-# Flask Instance for MySQL in the Private Subnet
-flask_instance_2 = ec2.Instance('flask-instance-2',
-    instance_type='t2.micro',
-    ami='ami-04b70fa74e45c3917',  # Ubuntu 24.04 LTS AMI for us-east-1
-    subnet_id=private_subnet.id,
-    vpc_security_group_ids=[flask_sg.id],
-    key_name=key_name,
-    tags={'Name': 'flask-instance-2'}
+    tags={'Name': 'flask-instance'}
 )
 
 # MySQL Instance in the Private Subnet
@@ -251,15 +245,25 @@ mysql_instance = ec2.Instance('mysql-instance',
     tags={'Name': 'mysql-instance'}
 )
 
+# Create Endpoints
+endpoints = ec2.VpcEndpoint('my-endpoints',
+    vpc_id=vpc.id,
+    service_name='com.amazonaws.us-east-1.s3',  # Change to desired AWS service
+    vpc_endpoint_type='Interface',
+    subnet_ids=[public_subnet.id, private_subnet.id],
+    security_group_ids=[nginx_sg.id, react_sg.id, flask_sg.id, mysql_sg.id],
+    tags={'Name': 'my-endpoints'}
+)
+
 # Export the VPC ID, public subnet ID, private subnet ID, and instances
 pulumi.export('vpc_id', vpc.id)
 pulumi.export('public_subnet_id', public_subnet.id)
 pulumi.export('private_subnet_id', private_subnet.id)
 pulumi.export('nginx_instance_id', nginx_instance.id)
 pulumi.export('react_instance_id', react_instance.id)
-pulumi.export('flask_instance_1_id', flask_instance_1.id)
-pulumi.export('flask_instance_2_id', flask_instance_2.id)
+pulumi.export('flask_instance_id', flask_instance.id)
 pulumi.export('mysql_instance_id', mysql_instance.id)
+pulumi.export('vpc_endpoint_id', endpoints.id)
 ```
 
 ### Step 4: Deploy the Pulumi Stack
