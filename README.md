@@ -36,13 +36,17 @@ aws ec2 create-key-pair --key-name MyKeyPair --query 'KeyMaterial' --output text
 ```
 5. **Set File Permissions Using PowerShell**:
 
-Open PowerShell and navigate to the directory where MyKeyPair.pem is located. Then, use the following command to set the correct permissions:
+    - **For Windows**: Open PowerShell and navigate to the directory where MyKeyPair.pem is located. Then, use the following command to set the correct permissions:
 
-```powershell
-icacls MyKeyPair.pem /inheritance:r
-icacls MyKeyPair.pem /grant:r "$($env:USERNAME):(R)"
-```
+      ```powershell
+      icacls MyKeyPair.pem /inheritance:r
+      icacls MyKeyPair.pem /grant:r "$($env:USERNAME):(R)"
+      ```
+    - **For Linux**:
 
+      ```
+      chmod 400 <MykeyPair.pem>
+      ```
 ### Step 3: Create the Pulumi Program
 
 1. **Install Necessary Python Packages**:
