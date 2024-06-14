@@ -88,47 +88,70 @@ Now, create a new Nginx configuration file with the desired settings.
 
 2. **Update the Nginx configuration** to proxy requests to the Docker container:
 
-    ```nginx
+```nginx
     worker_processes 1;
 
-    events {
-        worker_connections 1024;
-    }
+events {
+    worker_connections 1024;
+}
 
-    http {
-        include       mime.types;
-        default_type  application/octet-stream;
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
 
-        sendfile        on;
-        keepalive_timeout  65;
+    sendfile        on;
+    keepalive_timeout  65;
 
-        server {
-            listen       80;
-            server_name  localhost;
+    # Server block for routing based on subdirectories
+    server {
+        listen       80;
+        server_name  _;  # Use _ to catch all requests
 
-            location / {
-                proxy_pass http://<react-app-private-IP>:3000;  #port number of Docker container exposed.
-                proxy_set_header Host $host;
-                proxy_set_header X-Real-IP $remote_addr;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto $scheme;
-            }
+        # Location block for React App 1
+        location /app1/ {
+            proxy_pass http://10.0.2.186:3000/;  # Replace with React App 1 private IP
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            rewrite ^/app1/(.*)$ /$1 break;
+        }
 
-            location /api/ {
-                proxy_pass http://<private-IP-Flask>:5000/;
-                proxy_set_header Host $host;
-                proxy_set_header X-Real-IP $remote_addr;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto $scheme;
-            }
+        # Location block for React App 2
+        location /app2/ {
+            proxy_pass http://10.0.3.242:3001/;  # Replace with React App 2 private IP
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            rewrite ^/app2/(.*)$ /$1 break;
+        } 
 
-            error_page   500 502 503 504  /50x.html;
-            location = /50x.html {
-                root   /usr/share/nginx/html;
-            }
+        # Location block for Flask App 1 API
+        location /app1/bus/ {
+            proxy_pass http://10.0.3.242:3000/;  # Replace with Flask App 1 private IP
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        # Location block for Flask App 2 API
+        location /app2/payment/ {
+            proxy_pass http://10.0.3.242:3001/;  # Replace with Flask App 2 private IP
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   /usr/share/nginx/html;
         }
     }
-    ```
+}
+```
 
 3. **Save and close the file** (in nano, press `Ctrl + O` to save and `Ctrl + X` to exit).
 
