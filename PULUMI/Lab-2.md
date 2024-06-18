@@ -178,3 +178,4 @@ By the end of this lab, you will have a VPC with public and private subnets. The
 ### Summary
 
 By following these steps, you will have set up a VPC with one public subnet, one private subnet, a public route table, a private route table, an Internet Gateway, and a NAT Gateway using Pulumi and AWS CLI on Windows. If you encounter any issues or need further assistance, feel free to ask!
+

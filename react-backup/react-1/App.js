@@ -1,6 +1,3 @@
-
-## Run React-App
-```python
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
@@ -10,28 +7,47 @@ function App() {
   const [newUser, setNewUser] = useState({ name: '', email: '' });
 
   useEffect(() => {
-    axios.get('/app1/bus/items')
-      .then(response => setUsers(response.data))
-      .catch(error => console.error(error));
+    fetchUsers();
   }, []);
 
+  const fetchUsers = () => {
+    axios.get('http://localhost:5000/users')
+      .then(response => setUsers(response.data))
+      .catch(error => console.error(error));
+  };
+
   const addItem = () => {
-    axios.post('/app1/bus/item', newUser)
-      .then(response => setUsers([...users, { ...newUser, id: response.data.id }]))
+    axios.post('http://localhost:5000/user', newUser)
+      .then(response => {
+        fetchUsers(); // Fetch updated users list after successfully adding user
+        setNewUser({ name: '', email: '' }); // Clear input fields after adding
+      })
       .catch(error => console.error(error));
   };
 
   const updateItem = (id) => {
     const updatedItem = users.find(item => item.id === id);
-    axios.put(`/app1/bus/item/${id}`, updatedItem)
+    axios.put(`http://localhost:5000/user/${id}`, updatedItem)
       .then(response => console.log(response.data.message))
       .catch(error => console.error(error));
   };
 
   const deleteItem = (id) => {
-    axios.delete(`/app1/bus/item/${id}`)
-      .then(response => setUsers(users.filter(item => item.id !== id)))
+    axios.delete(`http://localhost:5000/user/${id}`)
+      .then(response => {
+        setUsers(users.filter(item => item.id !== id));
+      })
       .catch(error => console.error(error));
+  };
+
+  const handleNameChange = (e, id) => {
+    const updatedUsers = users.map(u => (u.id === id ? { ...u, name: e.target.value } : u));
+    setUsers(updatedUsers);
+  };
+
+  const handleEmailChange = (e, id) => {
+    const updatedUsers = users.map(u => (u.id === id ? { ...u, email: e.target.value } : u));
+    setUsers(updatedUsers);
   };
 
   return (
@@ -51,8 +67,9 @@ function App() {
           value={newUser.email}
           onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
         />
-        <button onClick={addItem} disabled={!newUser.name || !newUser.email}>Add User</button>
       </div>
+
+      <button className="add-user-button" onClick={addItem} disabled={!newUser.name || !newUser.email}>Add User</button>
 
       <ul className="item-list">
         {users.map(item => (
@@ -60,53 +77,22 @@ function App() {
             <input
               type="text"
               value={item.name}
-              onChange={(e) => setUsers(users.map(i => i.id === item.id ? { ...i, name: e.target.value } : i))}
+              onChange={(e) => handleNameChange(e, item.id)}
             />
             <input
               type="text"
               value={item.email}
-              onChange={(e) => setUsers(users.map(i => i.id === item.id ? { ...i, email: e.target.value } : i))}
+              onChange={(e) => handleEmailChange(e, item.id)}
             />
             <div className="button-group">
-              <button onClick={() => updateItem(item.id)}>Update</button>
-              <button onClick={() => deleteItem(item.id)}>Delete</button>
+              <button className="button-update" onClick={() => updateItem(item.id)}>Update</button>
+              <button className="button-delete" onClick={() => deleteItem(item.id)}>Delete</button>
             </div>
           </li>
         ))}
       </ul>
-
     </div>
   );
 }
 
 export default App;
-```
-#### Instal Docker
-//
- 
-### docker-compose
-
-     ```
-     sudo yum update -y
-     sudo yum install curl gnupg -y
-     sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-     sudo chmod +x /usr/local/bin/docker-compose
-     ```
-
-Create a `docker-compose.yaml`:
-```bash
-version: '3.8'
-
-services:
-  react-app:
-    image: fazlulkarim105925/my-react-app-2:v1.0
-    container_name: my-react-app
-    ports:
-      - "3000:80"
-```
-
-## Run the Docker Compose up command to start the container:
-
-```bash
-docker-compose up -d
-```
