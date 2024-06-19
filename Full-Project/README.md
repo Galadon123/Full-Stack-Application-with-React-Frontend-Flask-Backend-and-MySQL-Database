@@ -12,32 +12,33 @@ In this project, we aim to create a full-stack application that includes a React
    - Configured with one public subnet and one private subnet to separate external-facing services from internal resources.
    - The public subnet hosts resources that need to be accessible from the internet, while the private subnet hosts resources that should remain internal and secure.
    - The VPC includes routing tables, Internet Gateway (IGW) for internet access, and a NAT Gateway to allow private subnet instances to access the internet securely.
-   - To see the details, follow the links [AWS-Configure](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/tree/main/Full-Project/AWS-Configure)
+   - To see the details, follow the links [AWS-Configure](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/AWS-Configure/README.md)
+
    ![](./images/yasin-2.jpg)
 
 2. **Nginx Instance**:
    - Deployed in the public subnet to handle incoming HTTP requests and route them to the appropriate backend services.
    - Acts as a reverse proxy to distribute traffic between the React frontend applications and the Flask backend API.
    - Configured with a security group to allow HTTP and HTTPS traffic from anywhere, ensuring accessibility.
-   - To see the details, follow the link [Nginx-Setup](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/tree/main/Full-Project/Nginx-setup)
+   - To see the details, follow the link [Nginx-Setup](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/Nginx-setup/README.md)
 
 3. **React Applications**:
    - Two React frontend applications deployed in the private subnet to provide user interfaces for different functionalities (e.g., Bus Application and Payment Application).
    - These applications are not directly exposed to the internet; instead, they are accessed through the Nginx instance in the public subnet.
    - Each React app communicates with its respective Flask backend API using custom domain names set up via local DNS.
-   - To see the details, follow the link [React-Application-Setup](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/tree/main/Full-Project/REACT)
+   - To see the details, follow the link [React-Application-Setup](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/REACT/README.md)
 
 4. **Flask API**:
    - Flask backend services deployed in the private subnet to handle business logic and interact with the MySQL database.
    - Provides RESTful API endpoints that the React applications consume to perform CRUD operations.
    - Configured with security groups to restrict access to only the Nginx instance and other necessary components.
-   - To see the details, follow the link [Flask-Application-1-Setup](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/tree/main/Full-Project/flask-application/flask-app-1) [Flask-Application-2-Setup](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/tree/main/Full-Project/flask-application/flask-app-2)
+   - To see the details, follow the link [Flask-Application-1-Setup](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/flask-application/flask-app-1/README.md) [Flask-Application-2-Setup](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/flask-application/flask-app-2/README.md)
 
 5. **MySQL Database**:
    - Deployed in the private subnet to securely store and manage application data.
    - The database is not accessible from the internet, ensuring data security and integrity.
    - The Flask backend services interact with the MySQL database to read and write data, ensuring that the application state is persistently maintained.
-   - to see the details, follow the link [MySQL-Setup](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/tree/main/Full-Project/mysql)
+   - to see the details, follow the link [MySQL-Setup](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/mysql/README.md)
 
 
 #### Testing the Project
