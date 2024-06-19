@@ -4,6 +4,8 @@
 
 In this project, we aim to create a full-stack application that includes a React frontend, a Flask backend, and a MySQL database. The setup involves deploying the application on AWS using a structured VPC with public and private subnets, ensuring secure communication between the components. We then test the application by accessing it through custom domain names set up via local DNS entries.
 
+![](./images/yasin-1.jpg)
+
 #### Project Components
 
 1. **VPC Setup**:
@@ -11,6 +13,7 @@ In this project, we aim to create a full-stack application that includes a React
    - The public subnet hosts resources that need to be accessible from the internet, while the private subnet hosts resources that should remain internal and secure.
    - The VPC includes routing tables, Internet Gateway (IGW) for internet access, and a NAT Gateway to allow private subnet instances to access the internet securely.
    - To see the details, follow the links [AWS-Configure](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/tree/main/Full-Project/AWS-Configure)
+   ![](./images/yasin-2.jpg)
 
 2. **Nginx Instance**:
    - Deployed in the public subnet to handle incoming HTTP requests and route them to the appropriate backend services.

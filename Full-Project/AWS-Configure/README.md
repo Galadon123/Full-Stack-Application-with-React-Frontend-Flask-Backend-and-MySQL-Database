@@ -16,6 +16,8 @@ Specifically, you will:
    - SSH into the public subnet instance.
    - From the public subnet instance, SSH into the private subnet instances.
 
+![](../images/yasin-2.jpg)
+
 
 ### Step 1: Configure AWS CLI
 
