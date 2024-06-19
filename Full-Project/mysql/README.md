@@ -1,4 +1,4 @@
-## Mysql Setup
+## Mysql Setup in `Mysql-Instance`
 
 ### Requirements
 - **Docker**: You need Docker installed on your machine. Docker is available for Windows, macOS, and Linux distributions. You can download it from [Docker's official website](https://www.docker.com/get-started).

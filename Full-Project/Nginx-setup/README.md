@@ -1,5 +1,5 @@
 
-## Nginx Setup
+## Nginx Setup in `Nginx-Instance`
 
 ### Step 1: Install NGINX
 Open a terminal and run the following command to install NGINX:

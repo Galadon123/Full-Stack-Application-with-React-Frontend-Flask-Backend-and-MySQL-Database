@@ -3,7 +3,7 @@
 
 #### Step 1: Set Up the Flask Application directory
 
-1. **Create a New Directory for Your Flask Project**:
+1. **Create a New Directory for Your Flask Project in Flask-instance**:
 
     ```bash
     mkdir flask-app
@@ -104,43 +104,8 @@ if __name__ == '__main__':
      app.run(debug=True, host='0.0.0.0', port=5001)
 ```
 
-#### Step 2: Create Dockerfile
+#### Step 2: Run the application
 
-Create a `Dockerfile` in the root directory of your Flask project:
-
-```Dockerfile
-# Use the official Python image as the base image
-FROM python:3.8-slim
-
-# Set the working directory
-WORKDIR /app
-
-# Copy the Flask application code to the working directory
-COPY . .
-
-# Install the dependencies with specific versions
-RUN pip install --no-cache-dir Flask==2.0.1 Flask-SQLAlchemy==2.5.1 Flask-CORS==3.0.10 mysql-connector-python==8.0.25 Werkzeug==2.0.1 SQLAlchemy==1.3.23
-
-# Expose port 5000
-EXPOSE 5001
-
-# Run the Flask application
-CMD ["python", "app.py"]
+```sh
+python app.py
 ```
-
-#### Step 3: Build and Run the Docker Image
-
-1. **Build the Docker Image**:
-
-    ```bash
-    docker build -t my-flask-app .
-    ```
-
-2. **Run the Docker Container**:
-
-    Replace `<my-sql-private-ip>` with the actual private IP address of your MySQL EC2 instance.
-
-    ```bash
-    docker run -d --name flask_container -p 5000:5000 my-flask-app
-    ```
-
