@@ -373,9 +373,10 @@ Specifically, you will:
    - Replace `<react_instance_ip>`, `<flask_instance_ip>`, and `<mysql_instance_ip>` with the private IP addresses of the respective instances, which you can find in the Pulumi output or the AWS Management Console.
 ### Outputs:
 Resource Map for VPC we created:
-![](./images/res-map-1.png)
+![](../images/res-map-1.png)
 
-![](./images/res-map-2.png)
+![](../images/res-map-2.png)
+
 ### Summary
 
 By following these steps, you will have set up a VPC with one public subnet and one private subnet, launched EC2 instances in both subnets (Nginx in the public subnet, and React, Flask, and MySQL in the private subnet), and used SSH to connect from the public subnet instance to the private subnet instances using Pulumi and AWS CLI on Windows. If you encounter any issues or need further assistance, feel free to ask!
