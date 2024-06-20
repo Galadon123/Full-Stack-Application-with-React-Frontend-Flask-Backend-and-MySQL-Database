@@ -1,4 +1,3 @@
-Sure! Here is the detailed guide to setting up and running your second React application, `react-app-2`, using Docker and Docker Compose:
 
 ## React Application 2 Setup with Docker and Docker Compose
 
