@@ -26,7 +26,7 @@ In this project, we aim to create a full-stack application that includes a React
    - Two React frontend applications deployed in the private subnet to provide user interfaces for different functionalities (e.g., Bus Application and Payment Application).
    - These applications are not directly exposed to the internet; instead, they are accessed through the Nginx instance in the public subnet.
    - Each React app communicates with its respective Flask backend API using custom domain names set up via local DNS.
-   - To see the details, follow the link [React-Application-Setup-1](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/tree/main/Full-Project/REACT/react-app-1) [React-Applicaton-Setup-2]()
+   - To see the details, follow the link [React-Application-Setup-1](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/tree/main/Full-Project/REACT/react-app-1) [React-Applicaton-Setup-2](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/tree/main/Full-Project/REACT/react-app-2)
 
 4. **Flask API**:
    - Flask backend services deployed in the private subnet to handle business logic and interact with the MySQL database.
