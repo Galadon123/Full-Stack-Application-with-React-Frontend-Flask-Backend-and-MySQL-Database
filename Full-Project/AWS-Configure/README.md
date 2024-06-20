@@ -16,7 +16,7 @@ Specifically, you will:
    - SSH into the public subnet instance.
    - From the public subnet instance, SSH into the private subnet instances.
 
-![](../images/yasin-2.jpg)
+![](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/images/yasin-2.jpg)
 
 
 ### Step 1: Configure AWS CLI
@@ -208,7 +208,7 @@ Specifically, you will:
 
      pulumi.export("nginx_security_group_id", nginx_security_group.id)
      ```
-     ![](./images/nginx-sg.png)
+     ![](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/images/nginx-sg.png)
 
    - **React App Security Group**:
      ```python
@@ -227,7 +227,7 @@ Specifically, you will:
 
      pulumi.export("react_security_group_id", react_security_group.id)
      ```
-     ![](./images/react-sg.png)
+     ![](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/images/react-sg.png)
 
    - **Flask App Security Group**:
      ```python
@@ -246,7 +246,7 @@ Specifically, you will:
 
      pulumi.export("flask_security_group_id", flask_security_group.id)
      ```
-     ![](./images/flask-sg.png)
+     ![](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/images/flask-sg.png)
 
    - **MySQL Security Group**:
      ```python
@@ -265,7 +265,7 @@ Specifically, you will:
 
      pulumi.export("mysql_security_group_id", mysql_security_group.id)
      ```
-     ![](./images/mysql-sg.png)
+     ![](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/images/mysql-sg.png)
 
 2. **Create EC2 Instances**:
 
@@ -375,9 +375,9 @@ Specifically, you will:
    - Replace `<react_instance_ip>`, `<flask_instance_ip>`, and `<mysql_instance_ip>` with the private IP addresses of the respective instances, which you can find in the Pulumi output or the AWS Management Console.
 ### Outputs:
 Resource Map for VPC we created:
-![](../images/res-map-1.png)
+![](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/images/res-map-1.png)
 
-![](../images/res-map-2.png)
+![](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/images/res-map-2.png)
 
 ### Summary
 

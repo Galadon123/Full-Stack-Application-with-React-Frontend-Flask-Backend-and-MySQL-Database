@@ -4,7 +4,7 @@
 
 In this project, we aim to create a full-stack application that includes a React frontend, a Flask backend, and a MySQL database. The setup involves deploying the application on AWS using a structured VPC with public and private subnets, ensuring secure communication between the components. We then test the application by accessing it through custom domain names set up via local DNS entries.
 
-![](./images/yasin-1.jpg)
+![](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/images/yasin-1.jpg)
 
 #### Project Components
 
@@ -14,7 +14,7 @@ In this project, we aim to create a full-stack application that includes a React
    - The VPC includes routing tables, Internet Gateway (IGW) for internet access, and a NAT Gateway to allow private subnet instances to access the internet securely.
    - To see the details, follow the links [AWS-Configure](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/AWS-Configure/README.md)
 
-   ![](./images/yasin-2.jpg)
+   ![](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/images/yasin-2.jpg)
 
 2. **Nginx Instance**:
    - Deployed in the public subnet to handle incoming HTTP requests and route them to the appropriate backend services.
@@ -26,7 +26,7 @@ In this project, we aim to create a full-stack application that includes a React
    - Two React frontend applications deployed in the private subnet to provide user interfaces for different functionalities (e.g., Bus Application and Payment Application).
    - These applications are not directly exposed to the internet; instead, they are accessed through the Nginx instance in the public subnet.
    - Each React app communicates with its respective Flask backend API using custom domain names set up via local DNS.
-   - To see the details, follow the link [React-Application-Setup](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/REACT/README.md)
+   - To see the details, follow the link [React-Application-Setup-1](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/tree/main/Full-Project/REACT/react-app-1) [React-Applicaton-Setup-2]()
 
 4. **Flask API**:
    - Flask backend services deployed in the private subnet to handle business logic and interact with the MySQL database.
@@ -53,7 +53,7 @@ In this project, we aim to create a full-stack application that includes a React
      <nginx-instance-public-ip> payment-api.students.poridhi.io
      ```
 
-     ![](./images/dns-local.png)
+     ![](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/images/dns-local.png)
 
 2. **Access the Applications**:
    - Open a web browser and navigate to the following URLs to access the applications.
@@ -71,7 +71,7 @@ In this project, we aim to create a full-stack application that includes a React
      - Check that the user data is properly reflected in the application and the database.
      - Test the application's responsiveness and functionality across different browsers and devices.
 
-     ![Bus Application](./images/bus-app.png)
+     ![Bus Application](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/images/bus-app.png)
 
 4. **Testing Payment Application**:
    - **Frontend URL**: `http://payment.students.poridhi.io`
@@ -85,7 +85,7 @@ In this project, we aim to create a full-stack application that includes a React
      - Check that the payment data is properly reflected in the application and the database.
      - Test the application's responsiveness and functionality across different browsers and devices.
 
-     ![Payment Application](./images/payment-app.png)
+     ![Payment Application](https://github.com/Galadon123/Full-Stack-Application-with-React-Frontend-Flask-Backend-and-MySQL-Database/blob/main/Full-Project/images/payment-app.png)
 
 #### Conclusion
 
